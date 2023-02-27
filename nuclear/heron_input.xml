@@ -117,7 +117,7 @@
     <produces resource='water' dispatch='independent'>
       <consumes>electricity</consumes>
       <capacity resource='water'>
-        <opt_bounds>0,30000</opt_bounds> <!--m3/h-->
+        <sweep_values>0,30000</sweep_values> <!--m3/h-->
       </capacity>
       <transfer>
         <linear>
