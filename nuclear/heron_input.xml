@@ -133,34 +133,28 @@
           <variable>desalination_capacity</variable>
         </driver>
         <reference_price>
-          <fixed_value>-11800000</fixed_value> <!-- $-->
+          <fixed_value>-478782</fixed_value> <!-- $, corresponds to alpha, cf desalination regression spreadsheet-->
         </reference_price>
         <reference_driver>
-          <fixed_value>826.4</fixed_value> <!--m3/h-->
+          <fixed_value>3168</fixed_value> <!--m3/h-->
         </reference_driver>
         <scaling_factor_x>
           <fixed_value>0.4517</fixed_value>
         </scaling_factor_x>
-        <alpha>
-          <fixed_value>7.0788</fixed_value>
-        </alpha>
       </CashFlow>
-      <CashFlow name="desalination_capex" type="one-time" period="year" taxable="True" inflation="None" mult_target="False">
+      <CashFlow name="desalination_capex" type="one-time" taxable="True" inflation="None" mult_target="False">
         <driver>
           <variable>desalination_capacity</variable>
         </driver>
         <reference_price>
-          <fixed_value>-200000000</fixed_value> <!-- $-->
+          <fixed_value>-1628223</fixed_value> <!-- $-->
         </reference_price>
         <reference_driver>
-          <fixed_value>4196.2</fixed_value> <!--m3/h-->
+          <fixed_value>4196</fixed_value> <!--m3/h-->
         </reference_driver>
         <scaling_factor_x>
           <fixed_value>0.48</fixed_value>
         </scaling_factor_x>
-        <alpha>
-          <fixed_value>8.3034</fixed_value>
-        </alpha>
       </CashFlow>
       <CashFlow name='water_sales' type='repeating' taxable='True' inflation='None' mult_target='False'>
         <driver>
