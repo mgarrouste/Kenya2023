@@ -38,9 +38,9 @@
   
   <!-- PRODUCTION Components -->
     <Component name='npp'>
-      <produces resource="electricity" dispatch="fixed">
+      <produces resource="electricity" dispatch="independent">
         <capacity resource="electricity">
-          <sweep_values>1000,5000,10000,20000</sweep_values> <!-- kW-e-->
+          <sweep_values>50,300,1000,5000,10000,20000</sweep_values> <!-- kW-e-->
         </capacity>
       </produces>
       <economics>
@@ -117,7 +117,7 @@
     <produces resource='water' dispatch='independent'>
       <consumes>electricity</consumes>
       <capacity resource='water'>
-        <sweep_values>0,30000</sweep_values> <!--m3/h-->
+        <sweep_values>100,10000,30000</sweep_values> <!--m3/h-->
       </capacity>
       <transfer>
         <linear>
@@ -156,12 +156,12 @@
           <fixed_value>0.48</fixed_value>
         </scaling_factor_x>
       </CashFlow>
-      <CashFlow name='water_sales' type='repeating' taxable='True' inflation='None' mult_target='False'>
+      <CashFlow name='water_sales' type='repeating' period="hour" taxable='True' inflation='None' mult_target='False'>
         <driver>
           <activity>water</activity>
         </driver>
         <reference_price>
-          <sweep_values>0.5,1,1.5</sweep_values> <!-- Price of water $/m3-->
+          <fixed_value>1</fixed_value> <!-- Price of water $/m3, sweep values does not work!! TODO submit issue-->
         </reference_price>
       </CashFlow>
     </economics>
