@@ -8,9 +8,11 @@
         <memory>2gb</memory>
       </runinfo>
     </parallel>
-    <!--<debug></debug>-->
+    <data_handling>
+      <inner_to_outer>csv</inner_to_outer>
+    </data_handling>
     <verbosity>debug</verbosity>
-    <num_arma_samples>3</num_arma_samples>
+    <num_arma_samples>4</num_arma_samples>
     <time_discretization>
       <time_variable>hour</time_variable>
       <year_variable>Year</year_variable>
@@ -22,13 +24,15 @@
       <DiscountRate>0.12</DiscountRate>
       <tax>0.0</tax>
       <inflation>0.02</inflation>
-      <verbosity>50</verbosity>
+      <verbosity>0</verbosity>
       <EconMetrics>
         <LC/> 
       </EconMetrics>
     </economics>
     <dispatcher>
-      <pyomo>ipopt</pyomo>
+      <pyomo>
+        <solver>ipopt</solver>
+      </pyomo>
     </dispatcher>
   </Case>
 
