@@ -172,6 +172,6 @@
   </Components>
 
   <DataGenerators>
-    <ARMA name='price' variable="price">../train/Output_kenya_2021/arma.pk</ARMA> 
+    <ARMA name='price' variable="price">../../train/Output_kenya_2021/arma.pk</ARMA> 
   </DataGenerators>
 </HERON>
