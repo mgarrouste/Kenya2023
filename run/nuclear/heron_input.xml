@@ -27,11 +27,6 @@
     <dispatcher>
       <pyomo></pyomo>
     </dispatcher>
-    <optimization_settings>
-      <metric>expectedValue</metric>
-      <type>max</type>
-      <persistence>2</persistence>
-    </optimization_settings>
   </Case>
 
   <Components>
@@ -170,6 +165,6 @@
   </Components>
 
   <DataGenerators>
-    <ARMA name='price' variable="price">../train/Output_kenya_2021/arma.pk</ARMA> 
+    <ARMA name='price' variable="price">../../train/Output_kenya_2021/arma.pk</ARMA> 
   </DataGenerators>
 </HERON>
