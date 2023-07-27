@@ -1,5 +1,5 @@
 <HERON>
-  <Case name="diesel_lc">
+  <Case name="diesel">
     <mode>sweep</mode>
     <parallel>
       <runinfo>
@@ -38,7 +38,7 @@
     <Component name='diesel_generator'>
       <produces resource="electricity" dispatch="independent">
         <capacity resource="electricity">
-          <sweep_values>50,300,1000,5000,10000,20000</sweep_values> <!-- kWe -->
+          <sweep_values>2.5,5,10,20,40,80,160,320,640,1280</sweep_values> <!-- MWe -->
         </capacity>
       </produces>
       <economics>
@@ -65,29 +65,26 @@
       </economics>
     </Component>
 
+  <!-- DEMAND Components-->
     <Component name='grid'>
       <produces resource="electricity" dispatch="independent">
         <capacity resource="electricity">
-          <fixed_value>1e200</fixed_value> <!-- Infinite-->
+          <fixed_value>-1e200</fixed_value> <!-- Infinite-->
         </capacity>
       </produces>
       <economics>
-        <lifetime>10</lifetime>
-        <CashFlow name="e_needs" type="repeating" taxable="True" inflation="None" mult_target="False">
+        <lifetime>60</lifetime>
+        <CashFlow name="e_sales" type="repeating" taxable="True" inflation="None" mult_target="False">
           <driver>
             <activity>electricity</activity>
             <multiplier>-1</multiplier>
           </driver>
           <reference_price>
-            <ARMA variable='price'>price</ARMA> <!-- $/MWh-->
-            <multiplier>0.001</multiplier> <!-- conversion to $/kWh-->
+            <ARMA variable='price'>arma</ARMA> <!-- $/MWh-->
           </reference_price>
         </CashFlow>
       </economics>
     </Component>
-
-
-  <!-- DEMAND Components-->
 
     <Component name='industry_demand_thermal'>
       <demands resource='electricity' dispatch='fixed'>
@@ -115,7 +112,7 @@
       <produces resource='water' dispatch='independent'>
         <consumes>electricity</consumes>
         <capacity resource='water'>
-          <sweep_values>10,30000,50000</sweep_values> <!--m3/h-->
+          <sweep_values>100,200,400,800,1600,3200,6400,12800,25600,51200</sweep_values> <!--m3/h-->
         </capacity>
         <transfer>
           <linear>
@@ -168,6 +165,6 @@
   </Components>
 
   <DataGenerators>
-    <ARMA name='price' variable="price">../train/Output_kenya_2021/arma.pk</ARMA>
+    <ARMA name='arma' variable="price,solar">../../train/Output_kenya_solar_price_2021/arma.pk</ARMA> 
   </DataGenerators>
 </HERON>
