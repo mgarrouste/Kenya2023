@@ -119,7 +119,7 @@
             <multiplier>-1</multiplier>
           </driver>
           <reference_price>
-            <ARMA variable='price'>price</ARMA> <!-- $/MWh-->
+            <ARMA variable='price'>arma</ARMA> <!-- $/MWh-->
           </reference_price>
         </CashFlow>
       </economics>
