@@ -1,5 +1,5 @@
 <HERON>
-  <Case name="lamu_nuclear_solar">
+  <Case name="smr_s_d_g">
     <mode>sweep</mode>
     <parallel>
       <runinfo>
