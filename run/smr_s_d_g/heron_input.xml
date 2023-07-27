@@ -42,7 +42,7 @@
     <Component name='smr'>
       <produces resource="electricity" dispatch="fixed">
         <capacity resource="electricity">
-          <sweep_values>240,720,1200</sweep_values> <!-- MWe-->
+          <fixed_value>720</fixed_value> <!-- MWe-->
         </capacity>
       </produces>
       <economics>
