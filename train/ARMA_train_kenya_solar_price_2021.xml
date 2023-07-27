@@ -6,7 +6,7 @@
   </RunInfo>
 
   <Files>
-    <Input name="input">../ARMA_pointer_kenya_solar_demand_2021.csv</Input>
+    <Input name="input">../ARMA_pointer_kenya_solar_price_2021.csv</Input>
     <Input name="pk">arma.pk</Input>
   </Files>
 
