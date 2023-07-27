@@ -72,7 +72,10 @@
 
     <Component name='solar'>
       <produces resource='electricity' dispatch='independent'>
-        <sweep_values>5,50,100,500</sweep_values> <!-- MWe utility scale -->
+        <sweep_values>2.5,5,10,20,40,80,160,320,640,1280</sweep_values> <!-- MWe utility scale -->
+        <capacity_factor>
+          <ARMA variable="solar">arma</ARMA>
+        </capacity_factor>
       </produces>
       <economics>
         <lifetime>30</lifetime>
@@ -150,7 +153,7 @@
       <produces resource='water' dispatch='independent'>
         <consumes>electricity</consumes>
         <capacity resource='water'>
-          <sweep_values>100,10000,30000</sweep_values> <!--m3/h-->
+          <sweep_values>100,200,400,800,1600,3200,6400,12800,25600,51200</sweep_values> <!--m3/h-->
         </capacity>
         <transfer>
           <linear>
@@ -203,6 +206,6 @@
   </Components>
 
   <DataGenerators>
-    <ARMA name='price' variable="price">../../train/Output_kenya_2021/arma.pk</ARMA> 
+    <ARMA name='arma' variable="price,solar">../../train/Output_kenya_solar_price_2021/arma.pk</ARMA> 
   </DataGenerators>
 </HERON>
