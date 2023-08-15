@@ -8,7 +8,6 @@
         <memory>4gb</memory>
       </runinfo>
     </parallel>
-<!--    <debug></debug>-->
     <verbosity>debug</verbosity>
     <num_arma_samples>3</num_arma_samples>
     <time_discretization>
@@ -18,13 +17,13 @@
       <num_steps>24</num_steps>
     </time_discretization>
     <economics>
-      <ProjectTime>20</ProjectTime>
+      <ProjectTime>60</ProjectTime>
       <DiscountRate>0.12</DiscountRate>
       <tax>0.0</tax>
       <inflation>0.02</inflation>
       <verbosity>50</verbosity>
       <EconMetrics>
-        <LC/> 
+        <LC /> 
       </EconMetrics>
     </economics>
     <dispatcher>
@@ -34,44 +33,45 @@
 
   <Components>
   
-  <!-- PRODUCTION Components -->
-    <Component name='diesel_generator'>
+  
+    <Component name="diesel_generator">
       <produces resource="electricity" dispatch="independent">
         <capacity resource="electricity">
-          <sweep_values>2.5,5,10,20,40,80,160,320,640,1280</sweep_values> <!-- MWe -->
+          <sweep_values>60,120,180,240,300,360,420,480,540,600,660,720</sweep_values> 
         </capacity>
       </produces>
       <economics>
-        <lifetime>10</lifetime>
+        <lifetime>20</lifetime>
         <CashFlow name="diesel_generator_capex" type="one-time" taxable="True" inflation="None" mult_target="False">
           <driver>
             <variable>diesel_generator_capacity</variable>
           </driver>
           <reference_price>
-            <fixed_value>-650</fixed_value> <!-- $/kWe-->
+            <fixed_value>-650</fixed_value> 
           </reference_price>
           <reference_driver>
             <fixed_value>1</fixed_value>
           </reference_driver>
+          <depreciate>15</depreciate>
         </CashFlow>
         <CashFlow name="diesel_generator_vom" type="repeating" taxable="True" inflation="None" mult_target="False">
           <driver>
             <activity>electricity</activity>
           </driver>
           <reference_price>
-            <fixed_value>-0.370</fixed_value> <!-- $/kWh-e-->
+            <fixed_value>-0.370</fixed_value> 
           </reference_price>
         </CashFlow>
       </economics>
     </Component>
 
-  <!-- DEMAND Components-->
-    <Component name='grid'>
-      <produces resource="electricity" dispatch="independent">
+  
+    <Component name="grid">
+      <demands resource="electricity" dispatch="independent">
         <capacity resource="electricity">
-          <fixed_value>-1e200</fixed_value> <!-- Infinite-->
+          <fixed_value>-1e200</fixed_value> 
         </capacity>
-      </produces>
+      </demands>
       <economics>
         <lifetime>60</lifetime>
         <CashFlow name="e_sales" type="repeating" taxable="True" inflation="None" mult_target="False">
@@ -80,16 +80,16 @@
             <multiplier>-1</multiplier>
           </driver>
           <reference_price>
-            <ARMA variable='price'>arma</ARMA> <!-- $/MWh-->
+            <ARMA variable="price">arma</ARMA> 
           </reference_price>
         </CashFlow>
       </economics>
     </Component>
 
-    <Component name='industry_demand_thermal'>
-      <demands resource='electricity' dispatch='fixed'>
+    <Component name="industry_demand_thermal">
+      <demands resource="electricity" dispatch="fixed">
         <capacity>
-          <fixed_value>-186.45</fixed_value> <!-- 565 kW-th to 186.45kW-e assuming 0.33 efficiency-->
+          <fixed_value>-3.71</fixed_value> 
         </capacity>
       </demands>
       <economics>
@@ -97,10 +97,10 @@
       </economics>
     </Component>
 
-    <Component name='industry_demand_electricity'>
-      <demands resource='electricity' dispatch='fixed'>
+    <Component name="industry_demand_electricity">
+      <demands resource="electricity" dispatch="fixed">
         <capacity>
-          <fixed_value>-357</fixed_value> <!-- kWh-e-->
+          <fixed_value>-7.02</fixed_value> 
         </capacity>
       </demands>
       <economics>
@@ -108,16 +108,16 @@
       </economics>
     </Component>
 
-    <Component name='desalination'>
-      <produces resource='water' dispatch='independent'>
+    <Component name="desalination">
+      <produces resource="water" dispatch="independent">
         <consumes>electricity</consumes>
-        <capacity resource='water'>
-          <sweep_values>100,200,400,800,1600,3200,6400,12800,25600,51200</sweep_values> <!--m3/h-->
+        <capacity resource="electricity">
+          <sweep_values>0.1,60,120,180,240,300,360,420,480,540,600,660,720</sweep_values> <!-- MW-->
         </capacity>
         <transfer>
           <linear>
-            <rate resource='electricity'>-3.25</rate> <!-- kWh-e/m3-->
-            <rate resource="water">1</rate> <!-- m3/h-->
+            <rate resource="electricity">-3.25</rate> 
+            <rate resource="water">1</rate> 
           </linear>
         </transfer>
       </produces>
@@ -128,10 +128,10 @@
             <variable>desalination_capacity</variable>
           </driver>
           <reference_price>
-            <fixed_value>-478782</fixed_value> <!-- $, corresponds to alpha, cf desalination regression spreadsheet-->
+            <fixed_value>-478782</fixed_value> 
           </reference_price>
           <reference_driver>
-            <fixed_value>3168</fixed_value> <!--m3/h-->
+            <fixed_value>3168</fixed_value> 
           </reference_driver>
           <scaling_factor_x>
             <fixed_value>0.4517</fixed_value>
@@ -142,21 +142,21 @@
             <variable>desalination_capacity</variable>
           </driver>
           <reference_price>
-            <fixed_value>-1628223</fixed_value> <!-- $-->
+            <fixed_value>-1628223</fixed_value> 
           </reference_price>
           <reference_driver>
-            <fixed_value>4196</fixed_value> <!--m3/h-->
+            <fixed_value>4196</fixed_value> 
           </reference_driver>
           <scaling_factor_x>
             <fixed_value>0.48</fixed_value>
           </scaling_factor_x>
         </CashFlow>
-        <CashFlow name='water_sales' type='repeating' taxable='True' inflation='None' mult_target='False'>
+        <CashFlow name="water_sales" type="repeating" taxable="True" inflation="None" mult_target="False">
           <driver>
             <activity>water</activity>
           </driver>
           <reference_price>
-            <levelized_cost/> <!-- Find the LCO-H2O-->
+            <levelized_cost /> 
           </reference_price>
         </CashFlow>
       </economics>
@@ -165,6 +165,6 @@
   </Components>
 
   <DataGenerators>
-    <ARMA name='arma' variable="price,solar">../../train/Output_kenya_solar_price_2021/arma.pk</ARMA> 
+    <ARMA name="arma" variable="price,solar">../../train/Output_kenya_solar_price_2021/arma.pk</ARMA> 
   </DataGenerators>
 </HERON>
