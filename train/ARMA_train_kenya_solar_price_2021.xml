@@ -51,16 +51,16 @@
     </PointSet>
     <HistorySet name="input">
       <Input>scaling,Year</Input>
-      <Output>demand,solar_cf,hour</Output>
+      <Output>solar_cf,hour</Output>
       <options>	
         <pivotParameter>hour</pivotParameter>
       </options>
     </HistorySet>
     <DataSet name="synthetic">
       <Input>scaling</Input>
-      <Output>demand,solar_CF</Output>
-      <Index var="hour">demand,solar_cf</Index>
-	    <Index var="Year">demand,solar_cf</Index>
+      <Output>price,solar_CF</Output>
+      <Index var="hour">price,solar_cf</Index>
+	    <Index var="Year">price,solar_cf</Index>
     </DataSet>
     <DataSet name="meta"/>
   </DataObjects>
@@ -69,12 +69,12 @@
     <ROM name="arma" subType="ARMA">
       <pivotParameter>hour</pivotParameter>
       <Features>scaling</Features>
-      <Target>demand,solar_cf,hour</Target>
+      <Target>price,solar_cf,hour</Target>
       <P>0</P>
       <Q>1</Q>
       <Fourier>8760,4380,2190,1095,168,24,12</Fourier>
       <outTruncation domain='positive'>solar_cf</outTruncation>
-      <correlate>solar_cf,demand</correlate>
+      <correlate>solar_cf,price</correlate>
       <ZeroFilter>solar_cf</ZeroFilter>
       <reseedCopies>True</reseedCopies>
       <preserveInputCDF>True</preserveInputCDF>
@@ -118,7 +118,7 @@
       <samples>synthetic</samples>
       <macroParam>Year</macroParam>
       <microParam>hour</microParam>
-      <variables>demand,solar_cf</variables>
+      <variables>price,solar_cf</variables>
     </Plot>
   </OutStreams>
 
