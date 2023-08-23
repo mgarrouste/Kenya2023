@@ -51,16 +51,16 @@
     </PointSet>
     <HistorySet name="input">
       <Input>scaling,Year</Input>
-      <Output>solar_cf,hour</Output>
+      <Output>solar_cf,hour,price</Output>
       <options>	
         <pivotParameter>hour</pivotParameter>
       </options>
     </HistorySet>
     <DataSet name="synthetic">
       <Input>scaling</Input>
-      <Output>price,solar_CF</Output>
+      <Output>price,solar_cf</Output>
       <Index var="hour">price,solar_cf</Index>
-	    <Index var="Year">price,solar_cf</Index>
+      <Index var="Year">price,solar_cf</Index>
     </DataSet>
     <DataSet name="meta"/>
   </DataObjects>
@@ -74,7 +74,7 @@
       <Q>1</Q>
       <Fourier>8760,4380,2190,1095,168,24,12</Fourier>
       <outTruncation domain='positive'>solar_cf</outTruncation>
-      <correlate>solar_cf,price</correlate>
+      <!--<correlate>solar_cf,price</correlate>-->
       <ZeroFilter>solar_cf</ZeroFilter>
       <reseedCopies>True</reseedCopies>
       <preserveInputCDF>True</preserveInputCDF>
@@ -91,7 +91,7 @@
       <KDD labelFeature="labels" lib="SciKitLearn">
       <Features>price</Features>
       <SKLtype>cluster|KMeans</SKLtype>
-      <n_clusters>20</n_clusters>
+      <n_clusters>10</n_clusters>
       </KDD>
     </PostProcessor>
   </Models>
