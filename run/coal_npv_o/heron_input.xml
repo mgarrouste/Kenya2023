@@ -1,6 +1,6 @@
 <HERON>
   <Case name="coal">
-    <mode>sweep</mode>
+    <mode>opt</mode>
     <parallel>
       <runinfo>
         <expectedTime>72:0:0</expectedTime>
