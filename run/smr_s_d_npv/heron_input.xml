@@ -26,7 +26,7 @@
       <inflation>0.02</inflation>
       <verbosity>0</verbosity>
       <EconMetrics>
-        <LC /> 
+        <NPV /> 
       </EconMetrics>
     </economics>
     <dispatcher>
@@ -196,7 +196,7 @@
             <activity>water</activity>
           </driver>
           <reference_price>
-            <levelized_cost />
+            <fixed_value>1</fixed_value>
           </reference_price>
         </CashFlow>
       </economics>

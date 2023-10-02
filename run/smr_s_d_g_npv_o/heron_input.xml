@@ -1,6 +1,6 @@
 <HERON>
   <Case name="smr_s_d_g">
-    <mode>sweep</mode>
+    <mode>opt</mode>
     <parallel>
       <runinfo>
         <expectedTime>72:0:0</expectedTime>
@@ -42,7 +42,7 @@
     <Component name="smr">
       <produces resource="electricity" dispatch="fixed">
         <capacity resource="electricity">
-          <sweep_values>60,180,360,540,720</sweep_values> 
+          <opt_bounds>60,720</opt_bounds>
         </capacity>
       </produces>
       <economics>
@@ -73,7 +73,7 @@
     <Component name="solar">
       <produces resource="electricity" dispatch="independent">
 	      <capacity resource='electricity'>
-          <sweep_values>60,180,360,540,720</sweep_values> 
+          <opt_bounds>60,720</opt_bounds> 
 	      </capacity>
         <capacity_factor>
           <ARMA variable="solar">arma_kenya</ARMA>
@@ -150,7 +150,7 @@
       <produces resource="water" dispatch="independent">
         <consumes>electricity</consumes>
         <capacity resource="electricity">
-          <sweep_values>0,-180,-360,-540,-720</sweep_values> <!-- MW-->
+          <opt_bounds>0,-720</opt_bounds> <!-- MW-->
         </capacity>
         <transfer>
           <linear>
