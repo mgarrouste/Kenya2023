@@ -160,7 +160,7 @@
             <activity>water</activity>
           </driver>
           <reference_price>
-            <levelized_cost /> 
+            <fixed_value>1</fixed_value>
           </reference_price>
         </CashFlow>
       </economics>
