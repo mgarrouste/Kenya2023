@@ -5,11 +5,14 @@
       <runinfo>
         <expectedTime>72:0:0</expectedTime>
         <clusterParameters>-P re_gen</clusterParameters>
-        <memory>4gb</memory>
+        <memory>2gb</memory>
       </runinfo>
     </parallel>
+    <data_handling>
+      <inner_to_outer>csv</inner_to_outer>
+    </data_handling>
     <verbosity>debug</verbosity>
-    <num_arma_samples>3</num_arma_samples>
+    <num_arma_samples>2</num_arma_samples>
     <time_discretization>
       <time_variable>hour</time_variable>
       <year_variable>Year</year_variable>
@@ -21,16 +24,17 @@
       <DiscountRate>0.12</DiscountRate>
       <tax>0.0</tax>
       <inflation>0.02</inflation>
-      <verbosity>50</verbosity>
+      <verbosity>0</verbosity>
       <EconMetrics>
         <LC /> 
       </EconMetrics>
     </economics>
     <dispatcher>
-      <pyomo>ipopt</pyomo>
+      <pyomo>
+        <solver>ipopt</solver>
+      </pyomo>
     </dispatcher>
   </Case>
-
   <Components>
   
   
@@ -80,7 +84,7 @@
             <multiplier>-1</multiplier>
           </driver>
           <reference_price>
-            <ARMA variable="price">arma</ARMA> 
+            <ARMA variable="price">arma_kenya</ARMA> 
           </reference_price>
         </CashFlow>
       </economics>
@@ -112,7 +116,7 @@
       <produces resource="water" dispatch="independent">
         <consumes>electricity</consumes>
         <capacity resource="electricity">
-          <sweep_values>-0.1,-60,-120,-180,-240,-300,-360,-420,-480,-540,-600,-660,-720</sweep_values> <!-- MW-->
+          <sweep_values>-1,-60,-120,-180,-240,-300,-360,-420,-480,-540,-600,-660,-720</sweep_values> <!-- MW-->
         </capacity>
         <transfer>
           <linear>
@@ -165,6 +169,6 @@
   </Components>
 
   <DataGenerators>
-    <ARMA name="arma" variable="price,solar">../../train/Output_kenya_solar_price_2021/arma.pk</ARMA> 
+    <ARMA name="arma_kenya" variable="price,solar">../../train/Output_kenya_solar_price_2021/arma.pk</ARMA> 
   </DataGenerators>
 </HERON>
