@@ -1,6 +1,6 @@
 <HERON>
   <Case name="smr_d_g">
-    <mode>sweep</mode>
+    <mode>opt</mode>
     <parallel>
       <runinfo>
         <expectedTime>72:0:0</expectedTime>
@@ -23,7 +23,7 @@
       <inflation>0.02</inflation>
       <verbosity>0</verbosity>
       <EconMetrics>
-        <LC /> 
+        <NPV /> 
       </EconMetrics>
     </economics>
     <dispatcher>
@@ -158,7 +158,7 @@
             <activity>water</activity>
           </driver>
           <reference_price>
-            <levelized_cost />
+            <fixed_value>1</fixed_value>
           </reference_price>
         </CashFlow>
       </economics>

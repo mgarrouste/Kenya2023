@@ -23,7 +23,7 @@
       <inflation>0.02</inflation>
       <verbosity>0</verbosity>
       <EconMetrics>
-        <LC /> 
+        <NPV /> 
       </EconMetrics>
     </economics>
     <dispatcher>
@@ -114,7 +114,7 @@
       <produces resource="water" dispatch="independent">
         <consumes>electricity</consumes>
         <capacity resource="electricity">
-          <sweep_values>-1,-180,-360,-540,-720</sweep_values> <!-- MW-->
+          <sweep_values>0,-180,-360,-540,-720</sweep_values> <!-- MW-->
         </capacity>
         <transfer>
           <linear>
@@ -158,7 +158,7 @@
             <activity>water</activity>
           </driver>
           <reference_price>
-            <levelized_cost />
+            <fixed_value>1</fixed_value>
           </reference_price>
         </CashFlow>
       </economics>
