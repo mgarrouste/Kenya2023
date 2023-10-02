@@ -117,7 +117,7 @@
       <produces resource="water" dispatch="independent">
         <consumes>electricity</consumes>
         <capacity resource="electricity">
-          <sweep_values>0,-120,-240,-360,-480,-600,-720</sweep_values> <!-- MW-->
+          <sweep_values>0,-180,-360,-540,-720</sweep_values> <!-- MW-->
         </capacity>
         <transfer>
           <linear>
