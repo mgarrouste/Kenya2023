@@ -1,7 +1,7 @@
 <HERON>
   <Case name="diesel">
     <mode>sweep</mode>
-    <parallel>
+    <!--<parallel>
       <runinfo>
         <expectedTime>72:0:0</expectedTime>
         <clusterParameters>-P re_gen</clusterParameters>
@@ -10,7 +10,7 @@
     </parallel>
     <data_handling>
       <inner_to_outer>csv</inner_to_outer>
-    </data_handling>
+    </data_handling>-->
     <verbosity>debug</verbosity>
     <num_arma_samples>2</num_arma_samples>
     <time_discretization>
@@ -84,7 +84,7 @@
             <multiplier>-1</multiplier>
           </driver>
           <reference_price>
-            <ARMA variable="price">arma_kenya</ARMA> 
+            <fixed_value>20.132</fixed_value> 
           </reference_price>
         </CashFlow>
       </economics>
@@ -169,6 +169,6 @@
   </Components>
 
   <DataGenerators>
-    <ARMA name="arma_kenya" variable="price,solar">../../train/Output_kenya_solar_price_2021/arma.pk</ARMA> 
+    <ARMA name="arma_kenya" variable="solar_cf">../../train/Output_kenya_solar_2021/arma.pk</ARMA> 
   </DataGenerators>
 </HERON>
