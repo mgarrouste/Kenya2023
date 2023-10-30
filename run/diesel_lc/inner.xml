@@ -3,7 +3,8 @@
     <JobName>diesel_i</JobName>
     <WorkingDir>diesel_i</WorkingDir>
     <Sequence>read_arma_kenya, print_meta_arma_kenya, arma_sampling, summarize, database</Sequence>
-    <batchSize>1</batchSize>
+    <batchSize>2</batchSize>
+    <internalParallel>True</internalParallel>
   </RunInfo>
 
   <Steps>
@@ -25,7 +26,7 @@
     </PostProcess>
     <IOStep name="database">
       <Input class="DataObjects" type="PointSet">metrics_stats</Input>
-      <Output class="Databases" type="NetCDF">disp_results</Output>
+      <Output class="OutStreams" type="Print">disp_results</Output>
     </IOStep>
     <!-- <IOStep name="debug_print">
       <Input class='DataObjects' type='PointSet'>arma_samples</Input>

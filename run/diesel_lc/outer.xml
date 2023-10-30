@@ -3,7 +3,15 @@
     <JobName>diesel_o</JobName>
     <WorkingDir>diesel_o</WorkingDir>
     <Sequence>sweep</Sequence>
-    <batchSize>1</batchSize>
+    <batchSize>3</batchSize>
+    <expectedTime>72:0:0</expectedTime>
+    <clusterParameters>-P re_gen</clusterParameters>
+    <mode>mpi
+      <runQSUB />
+      <memory>2gb</memory>
+    </mode>
+    <NumMPI>2</NumMPI>
+    <internalParallel>True</internalParallel>
   </RunInfo>
 
   <Steps>
@@ -35,7 +43,7 @@
   <Models>
     <Code name="raven" subType="RAVEN">
       <executable>/Users/garrm/codes/raven/raven_framework</executable>
-      <outputDatabase>disp_results</outputDatabase>
+      <outputExportOutStreams>disp_results</outputExportOutStreams>
       <conversion>
         <input source="../write_inner.py" />
       </conversion>

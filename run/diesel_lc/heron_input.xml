@@ -1,7 +1,7 @@
 <HERON>
   <Case name="diesel">
     <mode>sweep</mode>
-    <!--<parallel>
+    <parallel>
       <runinfo>
         <expectedTime>72:0:0</expectedTime>
         <clusterParameters>-P re_gen</clusterParameters>
@@ -10,7 +10,7 @@
     </parallel>
     <data_handling>
       <inner_to_outer>csv</inner_to_outer>
-    </data_handling>-->
+    </data_handling>
     <verbosity>debug</verbosity>
     <num_arma_samples>2</num_arma_samples>
     <time_discretization>
