@@ -85,7 +85,7 @@
             <multiplier>-1</multiplier>
           </driver>
           <reference_price>
-            <ARMA variable="price">arma_kenya</ARMA> 
+            <fixed_value>20.132</fixed_value>
           </reference_price>
         </CashFlow>
       </economics>
@@ -170,6 +170,6 @@
   </Components>
 
   <DataGenerators>
-    <ARMA name="arma_kenya" variable="price,solar">../../train/Output_kenya_solar_price_2021/arma.pk</ARMA> 
+    <ARMA name="arma_kenya" variable="solar_cf">../../train/Output_kenya_solar_2021/arma.pk</ARMA> 
   </DataGenerators>
 </HERON>
