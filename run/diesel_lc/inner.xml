@@ -1,0 +1,179 @@
+<Simulation verbosity="debug">
+  <RunInfo>
+    <JobName>diesel_i</JobName>
+    <WorkingDir>diesel_i</WorkingDir>
+    <Sequence>read_arma_kenya, print_meta_arma_kenya, arma_sampling, summarize, database</Sequence>
+    <batchSize>1</batchSize>
+  </RunInfo>
+
+  <Steps>
+    <MultiRun name="arma_sampling">
+      <Input class="DataObjects" type="PointSet">dispatch_placeholder</Input>
+      <Model class="Models" type="EnsembleModel">sample_and_dispatch</Model>
+      <Sampler class="Samplers" type="MonteCarlo">mc_arma_dispatch</Sampler>
+      <Output class="DataObjects" type="DataSet">arma_metrics</Output>
+    </MultiRun>
+    <IOStep name="write_full">
+      <Input class="DataObjects" type="DataSet">disp_full</Input>
+      <Output class="Databases" type="NetCDF">disp_full</Output>
+    </IOStep>
+    <PostProcess name="summarize">
+      <Input class="DataObjects" type="PointSet">arma_metrics</Input>
+      <Model class="Models" type="PostProcessor">statistics</Model>
+      <Output class="DataObjects" type="PointSet">metrics_stats</Output>
+      <!-- <Output class='OutStreams' type='Print'>disp_results</Output> -->
+    </PostProcess>
+    <IOStep name="database">
+      <Input class="DataObjects" type="PointSet">metrics_stats</Input>
+      <Output class="Databases" type="NetCDF">disp_results</Output>
+    </IOStep>
+    <!-- <IOStep name="debug_print">
+      <Input class='DataObjects' type='PointSet'>arma_samples</Input>
+      <Output class='OutStreams' type='Print'>disp_debug</Output>
+    </IOStep> -->
+    <IOStep name="read_arma_kenya">
+      <Input class="Files" type="">/Users/garrm/Projects/Kenya2023/train/Output_kenya_solar_2021/arma.pk</Input>
+      <Output class="Models" type="ROM">arma_kenya</Output>
+    </IOStep>
+    <IOStep name="print_meta_arma_kenya">
+      <Input class="Models" type="ROM">arma_kenya</Input>
+      <Output class="DataObjects" type="PointSet">arma_kenya_meta</Output>
+      <Output class="OutStreams" type="Print">arma_kenya_meta</Output>
+    </IOStep>
+  </Steps>
+
+  <VariableGroups>
+    <Group name="GRO_dispatch">GRO_dispatch_in, GRO_dispatch_out, _ROM_Cluster, hour, Year</Group>
+    <Group name="GRO_dispatch_in">GRO_dispatch_in_scalar, GRO_dispatch_in_Time</Group>
+    <Group name="GRO_dispatch_out">LC_Mult</Group>
+    <Group name="GRO_dispatch_in_scalar">GRO_capacities, scaling</Group>
+    <Group name="GRO_dispatch_in_Time">solar_cf</Group>
+    <Group name="GRO_armasamples">GRO_armasamples_in, GRO_armasamples_out</Group>
+    <Group name="GRO_armasamples_in">GRO_armasamples_in_scalar</Group>
+    <Group name="GRO_armasamples_out">GRO_armasamples_out_scalar</Group>
+    <Group name="GRO_armasamples_in_scalar">scaling, GRO_capacities</Group>
+    <Group name="GRO_armasamples_out_scalar">LC_Mult</Group>
+    <Group name="GRO_final_return">mean_LC_Mult, std_LC_Mult, med_LC_Mult, max_LC_Mult, min_LC_Mult, perc_5_LC_Mult, perc_95_LC_Mult, samp_LC_Mult, var_LC_Mult</Group>
+    <Group name="GRO_full_dispatch">Dispatch__diesel_generator__production__electricity, Dispatch__grid__production__electricity, Dispatch__industry_demand_thermal__production__electricity, Dispatch__industry_demand_electricity__production__electricity, Dispatch__desalination__production__electricity, Dispatch__desalination__production__water</Group>
+    <Group name="GRO_cashflows" />
+    <Group name="GRO_full_dispatch_indices">hour, Year</Group>
+    <Group name="GRO_interp">stepwise</Group>
+    <Group name="GRO_capacities">diesel_generator_capacity, grid_capacity, industry_demand_thermal_capacity, industry_demand_electricity_capacity, desalination_capacity</Group>
+    <Group name="GRO_init_disp">Dispatch__diesel_generator__production__electricity, Dispatch__grid__production__electricity, Dispatch__industry_demand_thermal__production__electricity, Dispatch__industry_demand_electricity__production__electricity, Dispatch__desalination__production__electricity, Dispatch__desalination__production__water</Group>
+  </VariableGroups>
+
+  <DataObjects>
+    <DataSet name="arma_samples">
+      <Input>GRO_armasamples_in</Input>
+      <Output>GRO_armasamples_out</Output>
+    </DataSet>
+    <PointSet name="arma_metrics">
+      <Output>LC_Mult</Output>
+    </PointSet>
+    <PointSet name="metrics_stats">
+      <Output>GRO_final_return</Output>
+    </PointSet>
+    <DataSet name="disp_full">
+      <Output>GRO_full_dispatch, GRO_dispatch, GRO_cashflows</Output>
+      <Index var="hour">GRO_full_dispatch, GRO_dispatch_in_Time</Index>
+      <Index var="Year">GRO_full_dispatch, GRO_dispatch_in_Time</Index>
+      <Index var="_ROM_Cluster">GRO_full_dispatch, GRO_dispatch_in_Time</Index>
+      <Index var="cfYears">GRO_cashflows</Index>
+    </DataSet>
+    <DataSet name="dispatch_eval">
+      <Input>GRO_dispatch_in</Input>
+      <Index var="hour">GRO_dispatch_in_Time</Index>
+      <Index var="Year">GRO_dispatch_in_Time</Index>
+      <Index var="_ROM_Cluster">GRO_dispatch_in_Time</Index>
+    </DataSet>
+    <PointSet name="dispatch_placeholder">
+      <Input>GRO_dispatch_in_scalar</Input>
+    </PointSet>
+    <DataSet name="arma_kenya_meta" />
+    <PointSet name="arma_kenya_placeholder">
+      <Input>scaling</Input>
+    </PointSet>
+    <DataSet name="arma_kenya_samples">
+      <Input>scaling</Input>
+      <Output>solar_cf</Output>
+      <Index var="hour">solar_cf</Index>
+      <Index var="Year">solar_cf</Index>
+      <Index var="_ROM_Cluster">solar_cf</Index>
+    </DataSet>
+  </DataObjects>
+
+  <Databases>
+    <NetCDF name="disp_results" readMode="overwrite" directory="" />
+    <NetCDF name="disp_full" readMode="overwrite" directory="" />
+  </Databases>
+
+  <Models>
+    <ExternalModel name="dispatch" subType="HERON.DispatchManager">
+      <variables>GRO_dispatch, GRO_armasamples</variables>
+    </ExternalModel>
+    <EnsembleModel name="sample_and_dispatch" subType="">
+      <Model class="Models" type="ExternalModel">dispatch
+        <Input class="DataObjects" type="PointSet">dispatch_placeholder</Input>
+        <TargetEvaluation class="DataObjects" type="DataSet">dispatch_eval</TargetEvaluation>
+      </Model>
+      <Model class="Models" type="ROM">arma_kenya
+        <Input class="DataObjects" type="PointSet">arma_kenya_placeholder</Input>
+        <TargetEvaluation class="DataObjects" type="DataSet">arma_kenya_samples</TargetEvaluation>
+      </Model>
+    </EnsembleModel>
+    <PostProcessor name="statistics" subType="EconomicRatio">
+      <expectedValue prefix="mean">LC_Mult</expectedValue>
+      <sigma prefix="std">LC_Mult</sigma>
+      <median prefix="med">LC_Mult</median>
+      <maximum prefix="max">LC_Mult</maximum>
+      <minimum prefix="min">LC_Mult</minimum>
+      <percentile prefix="perc">LC_Mult</percentile>
+      <samples prefix="samp">LC_Mult</samples>
+      <variance prefix="var">LC_Mult</variance>
+    </PostProcessor>
+    <ROM name="arma_kenya" subType="pickledROM">
+      <maxCycles>60</maxCycles>
+      <clusterEvalMode>clustered</clusterEvalMode>
+    </ROM>
+  </Models>
+
+  <Files>
+    <Input name="libs">../../heron.lib</Input>
+    <Input name="/Users/garrm/Projects/Kenya2023/train/Output_kenya_solar_2021/arma.pk">/Users/garrm/Projects/Kenya2023/train/Output_kenya_solar_2021/arma.pk</Input>
+  </Files>
+
+  <Samplers>
+    <MonteCarlo name="mc_arma_dispatch">
+      <samplerInit>
+        <initialSeed>42</initialSeed>
+        <limit>3</limit>
+      </samplerInit>
+      <constant name="scaling">1.0</constant>
+      <constant name="diesel_generator_capacity">42</constant>
+      <constant name="grid_capacity">-1e+200</constant>
+      <constant name="industry_demand_thermal_capacity">-3.71</constant>
+      <constant name="industry_demand_electricity_capacity">-7.02</constant>
+      <constant name="desalination_capacity">42</constant>
+    </MonteCarlo>
+  </Samplers>
+
+  <Databases>
+    <NetCDF name="disp_debug" readMode="overwrite" directory="" />
+    <NetCDF name="disp_results" readMode="overwrite" directory="" />
+  </Databases>
+
+  <OutStreams>
+    <Print name="disp_debug">
+      <type>csv</type>
+      <source>arma_samples</source>
+    </Print>
+    <Print name="disp_results">
+      <type>csv</type>
+      <source>metrics_stats</source>
+    </Print>
+    <Print name="arma_kenya_meta">
+      <type>csv</type>
+      <source>arma_kenya_meta</source>
+    </Print>
+  </OutStreams>
+</Simulation>
