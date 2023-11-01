@@ -1,13 +1,13 @@
 <HERON>
   <Case name="smr_d_g">
     <mode>sweep</mode>
-    <parallel>
+    <!--<parallel>
       <runinfo>
         <expectedTime>72:0:0</expectedTime>
         <clusterParameters>-P re_gen</clusterParameters>
         <memory>2gb</memory>
       </runinfo>
-    </parallel>
+    </parallel>-->
     <verbosity>debug</verbosity>
     <num_arma_samples>2</num_arma_samples>
     <time_discretization>
@@ -168,6 +168,6 @@
   </Components>
 
   <DataGenerators>
-    <ARMA name="arma_kenya" variable="price,solar">../../train/Output_kenya_solar_price_2021/arma.pk</ARMA> 
+    <ARMA name="arma_kenya" variable="solar_cf">../../train/Output_kenya_solar_2021/arma.pk</ARMA> 
   </DataGenerators>
 </HERON>
